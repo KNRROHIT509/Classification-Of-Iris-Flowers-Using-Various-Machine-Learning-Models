@@ -48,7 +48,7 @@ Now it is time to create some models of the data and estimate their accuracy on 
 That is, we are going to hold back some data that the algorithms will not get to see and we will use this data to get a second and independent idea of how accurate the best model might actually be.
      We will split the loaded dataset into two, 80% of which we will use to train, evaluate and select among our models, and 20% that we will hold back as a test dataset.
      
-    **5.2 Test Harness**
+  **5.2 Test Harness**
     We will use stratified 10-fold cross validation to estimate model accuracy. This will split our dataset into 10 parts, train on 9 and test on 1 and repeat for all combinations of train-test splits. Stratified means that each fold or split of the dataset will aim to have the same distribution of example by class as exist in the whole training dataset.
     
    **5.3 Build Models**
