@@ -41,13 +41,16 @@ We are going to look at two types of plots:
 
 **5. Evaluate Some Algorithms**
 Now it is time to create some models of the data and estimate their accuracy on unseen data.
+
    **5.1 Create a train test Dataset**
      (We need to know that the model we created is good.)
      Later, we will use statistical methods to estimate the accuracy of the models that we create on unseen data. We also want a more concrete estimate of the accuracy of the best model on unseen data by evaluating it on actual unseen data.
 That is, we are going to hold back some data that the algorithms will not get to see and we will use this data to get a second and independent idea of how accurate the best model might actually be.
      We will split the loaded dataset into two, 80% of which we will use to train, evaluate and select among our models, and 20% that we will hold back as a test dataset.
+     
     **5.2 Test Harness**
     We will use stratified 10-fold cross validation to estimate model accuracy. This will split our dataset into 10 parts, train on 9 and test on 1 and repeat for all combinations of train-test splits. Stratified means that each fold or split of the dataset will aim to have the same distribution of example by class as exist in the whole training dataset.
+    
    **5.3 Build Models**
     We don’t know which algorithms would be good on this problem or what configurations to use.We get an idea from the plots that some of the classes are partially linearly separable in some dimensions, so we are expecting generally good results.
     
@@ -57,6 +60,7 @@ Let’s test 6 different algorithms:
 • Classification and Regression Trees (CART).
 • Gaussian Naive Bayes (NB).
 • Support Vector Machines (SVM).
+
    **5.4 Select Best Model**
    We now have 6 models and accuracy estimations for each. We need to compare the models to each other and select the most accurate.Running the example above, we get the following raw results:
                                             * LR: 0.960897 (0.052113)
@@ -66,3 +70,12 @@ Let’s test 6 different algorithms:
                                             * SVM: 0.983974 (0.032083)
    In this case, we can see that it looks like Support Vector Machines (SVM) has the largest estimated accuracy score at about 0.98 or 98%.
 We can also create a plot of the model evaluation results and compare the spread and the mean accuracy of each model. There is a population of accuracy measures for each algorithm because each algorithm was evaluated 10 times (via 10 fold-cross validation).A useful way to compare the samples of results for each algorithm is to create a box and whisker plot for each distribution and compare the distributions.
+
+**6. Make Predictions**
+We must choose an algorithm to use to make predictions.The results in the previous section suggest that the SVM was perhaps the most accurate model. We will use this model as our final model.Now we want to get an idea of the accuracy of the model on our validation set.This will give us an independent final check on the accuracy of the best model. It is valuable to keep a validation set just in case you made a slip during training, such as overfitting to the training set or a data leak. Both of these issues will result in an overly optimistic result.
+
+   **6.1 Make Predictions**
+   We can fit the model on the entire training dataset and make predictions on the validation dataset.
+
+   **6.2 Evaluate Predictions**
+   We can evaluate the predictions by comparing them to the expected results in the validation set, then calculate classification accuracy, as well as a confusion matrix and a classification report.
